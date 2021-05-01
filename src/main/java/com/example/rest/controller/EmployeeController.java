@@ -11,19 +11,24 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 
 @RestController
-@RequestMapping(path = "/employees")
+@RequestMapping
 public class EmployeeController
 {
     @Autowired
     private EmployeeDAO employeeDao;
 
-    @GetMapping(path="/", produces = "application/json")
+    @GetMapping("/")
+    public String testUri() {
+        return "Welcome !!!!!!";
+    }
+
+    @GetMapping(path="/employees", produces = "application/json")
     public Employees getEmployees()
     {
         return employeeDao.getAllEmployees();
     }
 
-    @PostMapping(path= "/", consumes = "application/json", produces = "application/json")
+    @PostMapping(path= "/employees", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Object> addEmployee(@RequestBody Employee employee)
     {
         Integer id = employeeDao.getAllEmployees().getEmployeeList().size() + 1;
